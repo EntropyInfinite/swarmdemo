@@ -19,6 +19,18 @@ function score = objective( x, y, func )
             score = 2*418.9829 - x.*sin(sqrt(abs(x))) - y.*sin(sqrt(abs(y)));
         case 'sphere'
             score = x.^2 + y.^2;
+        case 'table'
+            s = abs(1-sqrt(x.^2+y.^2)/pi);
+            score = -abs(sin(x).*cos(y).*exp(s));
+        case 'levy'
+            s1 = (sin(3*pi*x)).^2;
+            s2 = (x-1).^2.*(1+(sin(3*pi*y)).^2);
+            s3 = (y-1).^2.*(1+(sin(2*pi*y)).^2);
+            score = s1+s2+s3;
+        case 'dropwave'
+            numrtr = 1+cos(12*sqrt(x.^2+y.^2));
+            dnmntr = 2+0.5*(x.^2+y.^2);
+            score = -numrtr./dnmntr;
         otherwise
             error('Unidentified function');
     end
